@@ -1,10 +1,9 @@
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-
+"use client";
+import { redirect } from "next/navigation";
+import { useEffect } from "react";
 export default function Home() {
-  return (
-    <div>
-      <Button>Atul</Button>
-    </div>
-  );
+  useEffect(() => {
+    redirect("/api/auth/login?post_login_redirect_url=/dashboard");
+  }, []);
+  return <div></div>;
 }
