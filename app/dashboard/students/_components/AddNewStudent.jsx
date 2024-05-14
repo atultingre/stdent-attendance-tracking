@@ -37,6 +37,10 @@ const AddNewStudent = () => {
     formState: { errors },
   } = useForm();
 
+  /**
+   * Used to get the Grades
+   */
+
   const GetAllGradesList = () => {
     GlobalApi.GetAllGrades().then((resp) => {
       console.log("resp: ", resp);
@@ -47,6 +51,10 @@ const AddNewStudent = () => {
   useEffect(() => {
     GetAllGradesList();
   }, []);
+
+  /**
+   * Used to Add the Student
+   */
 
   const onSubmit = (data) => {
     setLoading(true);
