@@ -37,37 +37,42 @@ const SideNav = () => {
     },
   ];
   return (
-    <div className="border shadow-sm h-screen p-5">
-      <Image
-        src={"/logo.svg"}
-        width={100}
-        height={50}
-        alt="logo"
-        style={{ width: "auto", height: "auto" }}
-      />
+    <div className="shadow-sm h-screen border-r ">
+      <div className="flex items-center justify-center ">
+        <Image
+          src={"/logo.svg"}
+          width={140}
+          height={80}
+          alt="logo"
+
+          className="pt-2"
+          // style={{ width: "auto", height: "auto" }}
+        />
+      </div>
       <hr className="my-5" />
+      <div className="p-5">
+        {menuList.map((menu) => (
+          <Link href={menu?.path} className="" key={menu?.id}>
+            <h2
+              className={`flex items-center gap-3 text-md p-4 text-slate-500 ${
+                pathname === menu.path
+                  ? "bg-primary text-white rounded-lg cursor-pointer my-2"
+                  : "hover:bg-primary hover:text-white hover:rounded-lg cursor-pointer my-2"
+              } `}
+            >
+              <menu.icon />
+              {menu?.name}
+            </h2>
+          </Link>
+        ))}
+      </div>
 
-      {menuList.map((menu) => (
-        <Link href={menu?.path} className="" key={menu?.id}>
-          <h2
-            className={`flex items-center gap-3 text-md p-4 text-slate-500 ${
-              pathname === menu.path
-                ? "bg-primary text-white rounded-lg cursor-pointer my-2"
-                : "hover:bg-primary hover:text-white hover:rounded-lg cursor-pointer my-2"
-            } `}
-          >
-            <menu.icon />
-            {menu?.name}
-          </h2>
-        </Link>
-      ))}
-
-      <div className="flex gap-2 items-center bottom-5 fixed p-2">
+      <div className="flex gap-2 items-center bottom-5 fixed px-7">
         <Image
           src={user?.picture}
           alt={user?.name}
-          width={35}
-          height={35}
+          width={25}
+          height={25}
           className="rounded-full"
         />
         <div>
