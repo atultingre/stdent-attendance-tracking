@@ -1,7 +1,9 @@
 import { db } from "@/utils/dbConfig";
 import { STUDENTS } from "@/utils/schema";
+import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+// Add Students
 export async function POST(req, res) {
   const data = await req.json();
 
@@ -15,7 +17,17 @@ export async function POST(req, res) {
   return NextResponse.json(result);
 }
 
+// Get All Students
 export async function GET(req, res) {
   const result = await db.select().from(STUDENTS);
+  return NextResponse.json(result);
+}
+
+// Delete Student
+export async function DELETE(req, res) {
+  const searchParams = req.nextUrl.searchParams;
+  const id = searchParams.get("id");
+
+  const result = await db.delete(STUDENTS).where(eq(STUDENTS.id, id));
   return NextResponse.json(result);
 }

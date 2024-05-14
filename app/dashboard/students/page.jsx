@@ -23,9 +23,12 @@ const Students = () => {
     <div className="p-7">
       <h2 className="font-bold text-2xl flex justify-between items-center">
         <span>Students</span>
-        <AddNewStudent />
+        <AddNewStudent refreshData={GetAllStudentList} />
       </h2>
-      <StudentListTable studentList={studentList} />
+      <StudentListTable
+        studentList={studentList}
+        refreshData={GetAllStudentList}
+      />
     </div>
   );
 };

@@ -24,7 +24,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import GlobalApi from "@/app/_services/GlobalApi";
 
-const AddNewStudent = () => {
+const AddNewStudent = ({ refreshData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [grades, setGrades] = useState([]);
@@ -65,7 +65,8 @@ const AddNewStudent = () => {
           reset();
           setLoading(false);
           setOpen(false);
-          toast("New Student Added!");
+          refreshData();
+          toast.success("New Student Added!");
         }
         setLoading(false);
       })
