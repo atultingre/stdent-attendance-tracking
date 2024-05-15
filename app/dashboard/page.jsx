@@ -4,7 +4,6 @@ import { useTheme } from "next-themes";
 
 const dashboard = () => {
   const { setTheme } = useTheme();
-
   useEffect(() => {
     setTheme("light");
   }, []);

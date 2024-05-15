@@ -1,10 +1,17 @@
 "use client";
-import { redirect } from "next/navigation";
 import { useEffect } from "react";
+import { useUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+
 export default function Home() {
+  const { user } = useUser();
+
   useEffect(() => {
-    redirect("/dashboard");
-    // redirect("/api/auth/login?post_login_redirect_url=/dashboard");
+    if (user) {
+      redirect("/dashboard");
+    } else {
+      redirect("/sign-in");
+    }
   }, []);
 
   return <div></div>;

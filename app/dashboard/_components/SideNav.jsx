@@ -1,15 +1,14 @@
 "use client";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { GraduationCap, Hand, LayoutDashboard, Settings } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import React from "react";
 
 const SideNav = () => {
-  const router = useRouter();
+  const { user } = useUser();
   const pathname = usePathname();
-  // const { user } = useKindeBrowserClient();
+
   const menuList = [
     {
       id: 1,
@@ -44,9 +43,7 @@ const SideNav = () => {
           width={140}
           height={80}
           alt="logo"
-
           className="pt-2"
-          // style={{ width: "auto", height: "auto" }}
         />
       </div>
       <hr className="my-5" />
@@ -67,21 +64,15 @@ const SideNav = () => {
         ))}
       </div>
 
-      {/* <div className="flex gap-2 items-center bottom-5 fixed px-7">
-        <Image
-          src={user?.picture}
-          alt={user?.name}
-          width={25}
-          height={25}
-          className="rounded-full"
-        />
+      <div className="flex gap-2 items-center bottom-5 fixed px-7">
+        <UserButton />
         <div>
-          <h2 className="text-sm font-bold">
-            {user?.given_name} {user?.family_name}
+          <h2 className="text-sm font-bold">{user?.fullName}</h2>
+          <h2 className="text-xs text-slate-400">
+            {user?.primaryEmailAddress?.emailAddress}
           </h2>
-          <h2 className="text-xs text-slate-400">{user?.email}</h2>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
