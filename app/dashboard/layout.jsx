@@ -9,12 +9,13 @@ const layout = ({ children }) => {
   const { user } = useUser();
 
   useEffect(() => {
-    if (user) {
-      redirect("/dashboard");
-    } else {
+    if (!user) {
       redirect("/sign-in");
     }
-  }, [user]);
+    // else {
+    //   redirect("/dashboard");
+    // }
+  }, []);
 
   return (
     <div>
