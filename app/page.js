@@ -12,7 +12,7 @@ export default function Home() {
     } else {
       redirect("/sign-in");
     }
-  }, []);
+  }, [user]);
 
   return <div></div>;
 }

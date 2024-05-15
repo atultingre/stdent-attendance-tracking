@@ -14,7 +14,7 @@ const layout = ({ children }) => {
     } else {
       redirect("/sign-in");
     }
-  }, []);
+  }, [user]);
 
   return (
     <div>
