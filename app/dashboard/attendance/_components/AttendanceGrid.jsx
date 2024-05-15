@@ -12,6 +12,7 @@ const paginationPageSize = 10;
 const paginationPageSizeSelector = [25, 50, 100];
 
 const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
+  console.log("attendanceList: ", attendanceList);
   const [rowData, setRowData] = useState();
   const [colDefs, setColDefs] = useState([
     { field: "studentId", filter: true },
@@ -19,19 +20,14 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
   ]);
 
   const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
-  // const numberOfDays = daysInMonth(
-  //   moment(selectedMonth).format("YYYY"),
-  //   moment(selectedMonth).format("MM")
-  // );
 
   const numberOfDays = useMemo(() => {
     return daysInMonth(
       moment(selectedMonth).format("YYYY"),
-      moment(selectedMonth).format("MM") - 1 // months are 0-indexed in JavaScript Date
+      moment(selectedMonth).format("MM") - 1
     );
   }, [selectedMonth]);
 
-  // const daysArray = Array.from({ length: numberOfDays }, (_, i) => i + 1);
   const daysArray = useMemo(() => {
     return Array.from({ length: numberOfDays }, (_, i) => i + 1);
   }, [numberOfDays]);
@@ -54,16 +50,6 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
           obj[date] = isPresent(obj.studentId, date);
         });
       });
-
-      // daysArray.forEach((date) => {
-      //   setColDefs((prevData) => [
-      //     ...prevData,
-      //     { field: date.toString(), width: 50, editable: true },
-      //   ]);
-      //   userList.forEach((obj) => {
-      //     obj[date] = isPresent(obj.studentId, date);
-      //   });
-      // });
     }
   }, [attendanceList, daysArray]);
 

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import GridSelect from "@/app/_components/GridSelect";
+import GradeSelect from "@/app/_components/GradeSelect";
 import MonthSelection from "@/app/_components/MonthSelection";
 import { Button } from "@/components/ui/button";
 import GlobalApi from "@/app/_services/GlobalApi";
@@ -9,7 +9,7 @@ import AttendanceGrid from "./_components/AttendanceGrid";
 
 const Attendance = () => {
   const [selectedMonth, setSelectedMonth] = useState();
-  const [selectedGrade, setSelectedGrade] = useState();
+  const [selectedGrade, setSelectedGrade] = useState("5th");
   const [attendanceList, setAttendanceList] = useState([]);
 
   /**
@@ -34,7 +34,7 @@ const Attendance = () => {
         </div>
         <div className="flex items-center gap-2">
           <label htmlFor="">Select Grade</label>
-          <GridSelect selectedGrade={(value) => setSelectedGrade(value)} />
+          <GradeSelect selectedGrade={(value) => setSelectedGrade(value)} />
         </div>
         <Button onClick={() => onSearchHandler()}>Search</Button>
       </div>

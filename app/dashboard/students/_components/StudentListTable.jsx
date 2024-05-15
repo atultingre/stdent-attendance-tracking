@@ -55,11 +55,12 @@ const StudentListTable = ({ studentList, refreshData }) => {
   const [rowData, setRowData] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [colDefs, setColDefs] = useState([
-    { field: "id", filter: true },
-    { field: "name", filter: true },
-    { field: "contact", filter: true },
-    { field: "address", filter: true },
-    { field: "action", cellRenderer: CustomButtons },
+    { field: "id", filter: true, width: 100 },
+    { field: "name", filter: true, width: 250 },
+    { field: "grade", filter: true, width: 120 },
+    { field: "contact", filter: true, width: 150 },
+    { field: "address", filter: true, width: 350 },
+    { field: "action", cellRenderer: CustomButtons, width: 80 },
   ]);
 
   useEffect(() => {

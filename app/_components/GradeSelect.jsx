@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import GlobalApi from "../_services/GlobalApi";
 
-const GridSelect = ({ selectedGrade }) => {
+const GradeSelect = ({ selectedGrade }) => {
   const [grades, setGrades] = useState([]);
 
   useEffect(() => {
@@ -31,4 +31,4 @@ const GridSelect = ({ selectedGrade }) => {
   );
 };
 
-export default GridSelect;
+export default GradeSelect;
