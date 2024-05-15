@@ -7,11 +7,15 @@ import moment from "moment";
 import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
 
+const pagination = true;
+const paginationPageSize = 10;
+const paginationPageSizeSelector = [25, 50, 100];
+
 const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
   const [rowData, setRowData] = useState();
   const [colDefs, setColDefs] = useState([
-    { field: "studentId" },
-    { field: "name" },
+    { field: "studentId", filter: true },
+    { field: "name", filter: true },
   ]);
 
   const daysInMonth = (year, month) => new Date(year, month + 1, 0).getDate();
@@ -112,7 +116,12 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
 
       GlobalApi.MarkAttendance(data).then((res) => {
         console.log(res);
-        toast("Student id:" + studentId + " Mark as present");
+        toast.success("Student id:" + studentId + " Mark as present");
+      });
+    } else {
+      GlobalApi.MarkAttendanceAsAbsent(studentId, day, date).then((res) => {
+        console.log("res: ", res);
+        toast.success("Student id:" + studentId + " Mark as absent");
       });
     }
   };
@@ -126,6 +135,9 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
           onCellValueChanged={(e) =>
             onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)
           }
+          pagination={pagination}
+          paginationPageSize={paginationPageSize}
+          paginationPageSizeSelector={paginationPageSizeSelector}
         />
       </div>
     </div>

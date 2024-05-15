@@ -1,8 +1,9 @@
 import { db } from "@/utils/dbConfig";
 import { ATTENDANCE, STUDENTS } from "@/utils/schema";
-import { eq, isNull, or } from "drizzle-orm";
+import { and, eq, isNull, or } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
+// Get the Student list
 export async function GET(req, res) {
   const searchParams = req.nextUrl.searchParams;
   const grade = searchParams.get("grade");
@@ -26,6 +27,7 @@ export async function GET(req, res) {
   return NextResponse.json(result);
 }
 
+// mark student attendance
 export async function POST(req, res) {
   const data = await req.json();
   const result = await db.insert(ATTENDANCE).values({
@@ -34,6 +36,27 @@ export async function POST(req, res) {
     day: data.day,
     date: data.date,
   });
+
+  return NextResponse.json(result);
+}
+
+//
+
+export async function DELETE(req, res) {
+  const searchParams = req.nextUrl.searchParams;
+  const studentId = searchParams.get("studentId");
+  const date = searchParams.get("date");
+  const day = searchParams.get("day");
+
+  const result = await db
+    .delete(ATTENDANCE)
+    .where(
+      and(
+        eq(ATTENDANCE.studentId, studentId),
+        eq(ATTENDANCE.day, day),
+        eq(ATTENDANCE.date, date)
+      )
+    );
 
   return NextResponse.json(result);
 }
