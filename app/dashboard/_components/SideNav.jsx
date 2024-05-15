@@ -9,7 +9,7 @@ import React from "react";
 const SideNav = () => {
   const router = useRouter();
   const pathname = usePathname();
-  const { user } = useKindeBrowserClient();
+  // const { user } = useKindeBrowserClient();
   const menuList = [
     {
       id: 1,
@@ -67,7 +67,7 @@ const SideNav = () => {
         ))}
       </div>
 
-      <div className="flex gap-2 items-center bottom-5 fixed px-7">
+      {/* <div className="flex gap-2 items-center bottom-5 fixed px-7">
         <Image
           src={user?.picture}
           alt={user?.name}
@@ -81,7 +81,7 @@ const SideNav = () => {
           </h2>
           <h2 className="text-xs text-slate-400">{user?.email}</h2>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

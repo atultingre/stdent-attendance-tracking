@@ -1,34 +1,26 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { LoaderIcon, PlusIcon } from "lucide-react";
+import GlobalApi from "@/app/_services/GlobalApi";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { LoaderIcon, PlusIcon } from "lucide-react";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectGroup,
-  SelectLabel,
-} from "@/components/ui/select";
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import GlobalApi from "@/app/_services/GlobalApi";
 
 const AddNewStudent = ({ refreshData }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [grades, setGrades] = useState([]);
-  console.log("grades: ", grades);
 
   const {
     register,
@@ -40,17 +32,15 @@ const AddNewStudent = ({ refreshData }) => {
   /**
    * Used to get the Grades
    */
-
-  const GetAllGradesList = () => {
-    GlobalApi.GetAllGrades().then((resp) => {
-      console.log("resp: ", resp);
-      setGrades(resp.data);
-    });
-  };
-
   useEffect(() => {
     GetAllGradesList();
   }, []);
+
+  const GetAllGradesList = () => {
+    GlobalApi.GetAllGrades().then((resp) => {
+      setGrades(resp.data);
+    });
+  };
 
   /**
    * Used to Add the Student
@@ -60,7 +50,6 @@ const AddNewStudent = ({ refreshData }) => {
     setLoading(true);
     GlobalApi.CreateNewStudent(data)
       .then((resp) => {
-        console.log(resp);
         if (resp.data) {
           reset();
           setLoading(false);
@@ -71,7 +60,7 @@ const AddNewStudent = ({ refreshData }) => {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Error creating new student: ", error); // Log any errors
+        console.error("Error creating new student: ", error);
       });
   };
 
@@ -81,12 +70,12 @@ const AddNewStudent = ({ refreshData }) => {
         <PlusIcon size={20} />
         Add New Student
       </Button>
-      <Dialog open={open}>
-        <DialogContent>
+      <AlertDialog open={open}>
+        <AlertDialogContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <DialogHeader>
-              <DialogTitle>Add New Student</DialogTitle>
-              <DialogDescription>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Add New Student</AlertDialogTitle>
+              <AlertDialogDescription>
                 <div className="py-2">
                   <label>Full Name</label>
                   <Input
@@ -102,15 +91,11 @@ const AddNewStudent = ({ refreshData }) => {
                     {...register("grade", { required: true })}
                     className="p-3 border rounded "
                   >
-                    {/* {grades?.map((item, index) => (
+                    {grades?.map((item, index) => (
                       <option value={item.grade} key={index}>
                         {item.grade}
                       </option>
-                    ))} */}
-                    <option value="5th">5th</option>
-                    <option value="6th">6th</option>
-                    <option value="7th">7th</option>
-                    <option value="8th">8th</option>
+                    ))}
                   </select>
                 </div>
                 <div className="py-2">
@@ -130,27 +115,23 @@ const AddNewStudent = ({ refreshData }) => {
                     {...register("address")}
                   />
                 </div>
-                <div className="flex py-2 justify-end gap-3">
-                  <Button
-                    type="button"
-                    onClick={() => setOpen(false)}
-                    variant="ghost"
-                  >
-                    Cancel
-                  </Button>
-                  <Button type="submit" disable={loading}>
-                    {loading ? (
-                      <LoaderIcon className="animate-spin " />
-                    ) : (
-                      "Save"
-                    )}
-                  </Button>
-                </div>
-              </DialogDescription>
-            </DialogHeader>
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                type="button"
+                onClick={() => setOpen(false)}
+                variant="ghost"
+              >
+                Cancel
+              </AlertDialogCancel>
+              <AlertDialogAction type="submit" disabled={loading}>
+                {loading ? <LoaderIcon className="animate-spin " /> : "Save"}
+              </AlertDialogAction>
+            </AlertDialogFooter>
           </form>
-        </DialogContent>
-      </Dialog>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 };
