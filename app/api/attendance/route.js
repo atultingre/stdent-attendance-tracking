@@ -20,9 +20,11 @@ export async function GET(req, res) {
       attendanceId: ATTENDANCE.id,
     })
     .from(STUDENTS)
-    .leftJoin(ATTENDANCE, eq(STUDENTS.id, ATTENDANCE.studentId))
-    .where(eq(STUDENTS.grade, grade))
-    .where(or(eq(ATTENDANCE.date, month), isNull(ATTENDANCE.date)));
+    .leftJoin(
+      ATTENDANCE,
+      and(eq(STUDENTS.id, ATTENDANCE.studentId), eq(ATTENDANCE.date, month))
+    )
+    .where(eq(STUDENTS.grade, grade));
 
   return NextResponse.json(result);
 }
