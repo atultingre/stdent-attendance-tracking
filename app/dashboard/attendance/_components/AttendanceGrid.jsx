@@ -4,6 +4,8 @@ import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
 import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
 import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import moment from "moment";
+import GlobalApi from "@/app/_services/GlobalApi";
+import { toast } from "sonner";
 
 const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
   const [rowData, setRowData] = useState();
@@ -41,10 +43,7 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
         editable: true,
       }));
 
-      setColDefs((prevData) => [
-        ...prevData.slice(0, 2),
-        ...dynamicCols,
-      ]);
+      setColDefs((prevData) => [...prevData.slice(0, 2), ...dynamicCols]);
 
       userList.forEach((obj) => {
         daysArray.forEach((date) => {
@@ -63,6 +62,13 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
       // });
     }
   }, [attendanceList, daysArray]);
+
+  /**
+   * used to check if user is present or not
+   * @param {*} studentId
+   * @param {*} day
+   * @returns
+   */
 
   const isPresent = (studentId, day) => {
     const result = attendanceList.find(
@@ -88,11 +94,39 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
     return uniqueRecord;
   };
 
-  console.log("daysArray: ", daysArray);
+  /**
+   * used to mark student attendance
+   * @param {*} day
+   * @param {*} studentId
+   * @param {*} presentStatus
+   */
+  const onMarkAttendance = (day, studentId, presentStatus) => {
+    const date = moment(selectedMonth).format("MM/YYYY");
+    if (presentStatus) {
+      const data = {
+        day: day,
+        studentId: studentId,
+        present: presentStatus,
+        date: date,
+      };
+
+      GlobalApi.MarkAttendance(data).then((res) => {
+        console.log(res);
+        toast("Student id:" + studentId + " Mark as present");
+      });
+    }
+  };
+
   return (
     <div>
-      <div className="ag-theme-quartz" style={{ height: 500 }}>
-        <AgGridReact rowData={rowData} columnDefs={colDefs} />
+      <div className="ag-theme-quartz" style={{ height: 400 }}>
+        <AgGridReact
+          rowData={rowData}
+          columnDefs={colDefs}
+          onCellValueChanged={(e) =>
+            onMarkAttendance(e.colDef.field, e.data.studentId, e.newValue)
+          }
+        />
       </div>
     </div>
   );
