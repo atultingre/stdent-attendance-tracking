@@ -13,7 +13,7 @@ import { Calendar } from "@/components/ui/calendar";
 
 const MonthSelection = ({ onMothSelection }) => {
   const today = new Date();
-  const nextMonth = addMonths(new Date(), 0);
+  const nextMonth = addMonths(today, 0);
   const [month, setMonth] = useState(nextMonth);
 
   return (
@@ -25,7 +25,7 @@ const MonthSelection = ({ onMothSelection }) => {
             className="flex gap-2 items-center text-slate-500"
           >
             <CalendarDays className="h-5 w-5" />{" "}
-            {moment(month).format("MMM YYYY")}
+            {moment(month).format("MM/yyyy")}
           </Button>
         </PopoverTrigger>
         <PopoverContent>

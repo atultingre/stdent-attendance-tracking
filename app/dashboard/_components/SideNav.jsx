@@ -1,7 +1,7 @@
 "use client";
 import { GraduationCap, Hand, LayoutDashboard, Settings } from "lucide-react";
-import { usePathname } from "next/navigation";
 import { UserButton, useUser } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 

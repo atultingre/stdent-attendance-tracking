@@ -3,12 +3,11 @@ import React, { useEffect, useState } from "react";
 import GlobalApi from "../_services/GlobalApi";
 
 const GradeSelect = ({ selectedGrade }) => {
-  const [grades, setGrades] = useState([]);
+  const [grades, setGrades] = useState();
 
   useEffect(() => {
     GetAllGradesList();
   }, []);
-
   const GetAllGradesList = () => {
     GlobalApi.GetAllGrades().then((resp) => {
       setGrades(resp.data);

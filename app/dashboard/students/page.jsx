@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import AddNewStudent from "./_components/AddNewStudent";
 import GlobalApi from "@/app/_services/GlobalApi";
+import AddNewStudent from "./_components/AddNewStudent";
 import StudentListTable from "./_components/StudentListTable";
 
 const Students = () => {
@@ -15,6 +15,7 @@ const Students = () => {
       setStudentList(res.data);
     });
   };
+
   useEffect(() => {
     GetAllStudentList();
   }, []);

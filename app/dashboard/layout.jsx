@@ -8,14 +8,13 @@ import { redirect } from "next/navigation";
 const layout = ({ children }) => {
   const { user } = useUser();
 
-  useEffect(() => {
-    if (!user) {
-      redirect("/sign-in");
-    }
-    // else {
-    //   redirect("/dashboard");
-    // }
-  }, []);
+  // useEffect(() => {
+  //   if (user) {
+  //     redirect("/dashboard");
+  //   } else {
+  //     redirect("/sign-in");
+  //   }
+  // }, []);
 
   return (
     <div>

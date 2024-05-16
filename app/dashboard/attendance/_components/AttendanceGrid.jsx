@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useMemo, useState } from "react";
-import { AgGridReact } from "ag-grid-react"; // React Data Grid Component
-import "ag-grid-community/styles/ag-grid.css"; // Mandatory CSS required by the grid
-import "ag-grid-community/styles/ag-theme-quartz.css"; // Optional Theme applied to the grid
 import moment from "moment";
-import GlobalApi from "@/app/_services/GlobalApi";
 import { toast } from "sonner";
+import { AgGridReact } from "ag-grid-react"; 
+import "ag-grid-community/styles/ag-grid.css";
+import "ag-grid-community/styles/ag-theme-quartz.css";
+import GlobalApi from "@/app/_services/GlobalApi";
 
 const pagination = true;
 const paginationPageSize = 10;
@@ -91,7 +91,7 @@ const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
    * @param {*} presentStatus
    */
   const onMarkAttendance = (day, studentId, presentStatus) => {
-    const date = moment(selectedMonth).format("MM/YYYY");
+    const date = moment(selectedMonth).format("MM/yyyy");
     if (presentStatus) {
       const data = {
         day: day,

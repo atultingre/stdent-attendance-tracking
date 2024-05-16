@@ -5,14 +5,15 @@ import { redirect } from "next/navigation";
 
 export default function Home() {
   const { user } = useUser();
-
   useEffect(() => {
-    if (user) {
-      redirect("/dashboard");
-    } else {
-      redirect("/sign-in");
-    }
+    redirect("/dashboard");
   }, []);
+
+  // useEffect(() => {
+  //   if (!user) {
+  //     redirect("/sign-in");
+  //   }
+  // }, [user]);
 
   return <div></div>;
 }

@@ -1,22 +1,22 @@
 "use client";
 import React, { useState } from "react";
+import moment from "moment";
 import GradeSelect from "@/app/_components/GradeSelect";
 import MonthSelection from "@/app/_components/MonthSelection";
 import { Button } from "@/components/ui/button";
 import GlobalApi from "@/app/_services/GlobalApi";
-import moment from "moment";
 import AttendanceGrid from "./_components/AttendanceGrid";
 
 const Attendance = () => {
   const [selectedMonth, setSelectedMonth] = useState();
-  const [selectedGrade, setSelectedGrade] = useState("5th");
+  const [selectedGrade, setSelectedGrade] = useState("1st");
   const [attendanceList, setAttendanceList] = useState([]);
 
   /**
    * Used to fetch attendance list for given month and grade
    */
   const onSearchHandler = () => {
-    const month = moment(selectedMonth).format("MM/YYYY");
+    const month = moment(selectedMonth).format("MM/yyyy");
     GlobalApi.GetAttendanceList(selectedGrade, month).then((res) => {
       setAttendanceList(res.data);
     });
