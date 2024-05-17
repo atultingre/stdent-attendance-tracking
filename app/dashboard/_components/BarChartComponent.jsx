@@ -10,27 +10,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { getUniqueRecord } from "@/app/_services/service";
+import { useStateContext } from "@/app/_components/StateContext";
 
-const BarChartComponent = ({ attendanceList, totalPresentData }) => {
-  // const [data, setData] = useState([]);
-  // useEffect(() => {
-  //   if (attendanceList) {
-  //     formatAttendanceListCount();
-  //   }
-  // }, [attendanceList || totalPresentData]);
-  
-  // const formatAttendanceListCount = () => {
-  //   const totalStudent = getUniqueRecord(attendanceList);
-    
-  //   const result = totalPresentData.map((item) => ({
-  //     day: Number(item.day),
-  //     presentCount: Number(item.presentCount),
-  //     absentCount: Number(totalStudent?.length) - Number(item.presentCount),
-  //   }));
-    
-  //   setData(result);
-  // };
+const BarChartComponent = ({}) => {
+  const { attendanceList } = useStateContext();
 
   const [data, setData] = useState([]);
 
@@ -41,7 +24,9 @@ const BarChartComponent = ({ attendanceList, totalPresentData }) => {
   }, [attendanceList]);
 
   const formatAttendanceListCount = () => {
-    const totalStudentIds = new Set(attendanceList.map(record => record.studentId));
+    const totalStudentIds = new Set(
+      attendanceList.map((record) => record.studentId)
+    );
     const totalStudentCount = totalStudentIds.size;
 
     const attendanceByDay = {};
@@ -57,8 +42,9 @@ const BarChartComponent = ({ attendanceList, totalPresentData }) => {
       }
     });
 
-    Object.keys(attendanceByDay).forEach(day => {
-      attendanceByDay[day].absentCount = totalStudentCount - attendanceByDay[day].presentCount;
+    Object.keys(attendanceByDay).forEach((day) => {
+      attendanceByDay[day].absentCount =
+        totalStudentCount - attendanceByDay[day].presentCount;
     });
 
     const formattedData = Object.keys(attendanceByDay).map((day) => ({

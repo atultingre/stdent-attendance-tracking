@@ -3,18 +3,19 @@ import React, { useEffect } from "react";
 import SideNav from "./_components/SideNav";
 import Header from "./_components/Header";
 import { useUser } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
+import { redirect, usePathname, useRouter } from "next/navigation";
 
 const layout = ({ children }) => {
   const { user } = useUser();
+  const router = useRouter();
 
-  // useEffect(() => {
-  //   if (user) {
-  //     redirect("/dashboard");
-  //   } else {
-  //     redirect("/sign-in");
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    } else {
+      router.push("/sign-in");
+    }
+  }, [user, router]);
 
   return (
     <div>

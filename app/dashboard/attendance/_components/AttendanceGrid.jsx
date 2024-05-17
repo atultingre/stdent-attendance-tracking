@@ -12,7 +12,6 @@ const paginationPageSize = 10;
 const paginationPageSizeSelector = [25, 50, 100];
 
 const AttendanceGrid = ({ attendanceList, selectedMonth }) => {
-  console.log("attendanceList: ", attendanceList);
   const [rowData, setRowData] = useState();
   const [colDefs, setColDefs] = useState([
     { field: "studentId", filter: true },

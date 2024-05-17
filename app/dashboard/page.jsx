@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
 import MonthSelection from "../_components/MonthSelection";
 import GradeSelect from "../_components/GradeSelect";
 import GlobalApi from "../_services/GlobalApi";
@@ -8,15 +7,15 @@ import moment from "moment";
 import StatusList from "./_components/StatusList";
 import BarChartComponent from "./_components/BarChartComponent";
 import PieChartComponent from "./_components/PieChartComponent";
+import { useStateContext } from "../_components/StateContext";
 
 const dashboard = () => {
+
+  const { setAttendanceList } = useStateContext();
   const [selectedMonth, setSelectedMonth] = useState();
   const [selectedGrade, setSelectedGrade] = useState("1st");
-  const [attendanceList, setAttendanceList] = useState();
-  // const [totalPresentData, settotalPresentData] = useState([]);
 
   useEffect(() => {
-    // GetTotalPresentCountByDay();
     getStudentAttendance();
   }, [selectedMonth || selectedGrade]);
 
@@ -33,12 +32,7 @@ const dashboard = () => {
     });
   };
 
-  // const GetTotalPresentCountByDay = () => {
-  //   GlobalApi.TotalPresentCountByDay(
-  //     moment(selectedMonth).format("MM/yyyy"),
-  //     selectedGrade
-  //   ).then((res) => settotalPresentData(res.data));
-  // };
+
 
   return (
     <div className="p-7">
@@ -50,16 +44,13 @@ const dashboard = () => {
           <GradeSelect selectedGrade={setSelectedGrade} />
         </div>
       </div>
-      <StatusList attendanceList={attendanceList} />
+      <StatusList />
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         <div className="md:col-span-2 ">
-          <BarChartComponent
-            attendanceList={attendanceList}
-            // totalPresentData={totalPresentData}
-          />
+          <BarChartComponent />
         </div>
         <div>
-          <PieChartComponent attendanceList={attendanceList} />
+          <PieChartComponent />
         </div>
       </div>
     </div>

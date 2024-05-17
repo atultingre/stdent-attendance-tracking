@@ -3,6 +3,7 @@ import { ThemeProvider } from "./ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
+import { StateProvider } from "./_components/StateContext";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -30,15 +31,17 @@ export default function RootLayout({ children }) {
           <meta charSet={metadata.charset} />
         </head>
         <body className={outfit.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster />
-          </ThemeProvider>
+          <StateProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </StateProvider>
         </body>
       </html>
     </ClerkProvider>
