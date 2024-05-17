@@ -4,49 +4,40 @@ import { UserButton, useUser } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
+import { useStateContext } from "@/app/_components/StateContext";
 
+export const menuList = [
+  {
+    id: 1,
+    name: "Dashboard",
+    icon: LayoutDashboard,
+    path: "/dashboard",
+  },
+  {
+    id: 2,
+    name: "Students",
+    icon: GraduationCap,
+    path: "/dashboard/students",
+  },
+  {
+    id: 3,
+    name: "Attendance",
+    icon: Hand,
+    path: "/dashboard/attendance",
+  },
+  {
+    id: 4,
+    name: "Settings",
+    icon: Settings,
+    path: "/dashboard/settings",
+  },
+];
 const SideNav = () => {
   const { user } = useUser();
   const pathname = usePathname();
 
-  const menuList = [
-    {
-      id: 1,
-      name: "Dashboard",
-      icon: LayoutDashboard,
-      path: "/dashboard",
-    },
-    {
-      id: 2,
-      name: "Students",
-      icon: GraduationCap,
-      path: "/dashboard/students",
-    },
-    {
-      id: 3,
-      name: "Attendance",
-      icon: Hand,
-      path: "/dashboard/attendance",
-    },
-    {
-      id: 4,
-      name: "Settings",
-      icon: Settings,
-      path: "/dashboard/settings",
-    },
-  ];
   return (
-    <div className="shadow-sm h-screen border-r ">
-      <div className="flex items-center justify-center ">
-        <Image
-          src={"/logo.svg"}
-          width={140}
-          height={80}
-          alt="logo"
-          className="pt-2"
-        />
-      </div>
-      <hr className="my-5" />
+    <div className="shadow-sm h-screen border-r">
       <div className="p-5">
         {menuList.map((menu) => (
           <Link href={menu?.path} className="" key={menu?.id}>

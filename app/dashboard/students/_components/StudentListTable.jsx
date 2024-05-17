@@ -60,7 +60,7 @@ const StudentListTable = ({ studentList, refreshData }) => {
     { field: "grade", filter: true, width: 120 },
     { field: "contact", filter: true, width: 150 },
     { field: "address", filter: true, width: 350 },
-    { field: "action", cellRenderer: CustomButtons, width: 80 },
+    { field: "action", cellRenderer: CustomButtons, width: 100 },
   ]);
 
   useEffect(() => {

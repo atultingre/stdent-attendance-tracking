@@ -16,6 +16,7 @@ export const StateProvider = ({ children }) => {
   const [studentList, setStudentList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [grades, setGrades] = useState([]);
+  const [open, setOpen] = useState(false);
 
   return (
     <StateContext.Provider
@@ -40,6 +41,8 @@ export const StateProvider = ({ children }) => {
         setLoading,
         grades,
         setGrades,
+        open,
+        setOpen,
       }}
     >
       {children}

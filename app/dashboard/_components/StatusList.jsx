@@ -53,10 +53,12 @@ const StatusList = () => {
       setPresentPercentage(
         Number.isNaN(presentPercentage) ? 0 : presentPercentage
       );
-      setAbsentPercentage(100 - presentPercentage);
+      setAbsentPercentage(
+        Number(totalStudentInClass.length) ? 100 - presentPercentage : 0
+      );
       setLoading(false);
     }
-  }, [attendanceList]);
+  }, [attendanceList, presentPercentage, absentPercentage]);
 
   return (
     <div>
@@ -76,12 +78,12 @@ const StatusList = () => {
             />
             <Card
               icon={<TrendingUp />}
-              title="Montly Present Total % "
+              title="Present Total % "
               value={presentPercentage.toFixed(1) + "%"}
             />
             <Card
               icon={<TrendingDown />}
-              title="Montly Absent Total  % "
+              title="Absent Total  % "
               value={absentPercentage.toFixed(1) + "%"}
             />
           </>

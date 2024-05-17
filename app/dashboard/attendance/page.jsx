@@ -25,18 +25,23 @@ const Attendance = () => {
     <div className="p-7">
       <h2 className="font-bold text-2xl">Attendance</h2>
       {/* Search option */}
-      <div className="flex my-5 items-center gap-4 border rounded-lg shadow-md p-5">
-        <div className="flex items-center gap-2">
+      <div className="grid grid-cols-3 my-5 items-center gap-4 border rounded-lg shadow-sm p-5">
+        <div className="sm: col-span-3 md:col-span-1 flex items-center w-full gap-2">
           <label htmlFor="">Select Month</label>
           <MonthSelection
             onMothSelection={(value) => setSelectedMonth(value)}
           />
         </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="">Select Grade</label>
+        <div className="sm: col-span-3 md:col-span-1 flex items-center gap-2">
+          <label htmlFor="">Select Class</label>
           <GradeSelect selectedGrade={(value) => setSelectedGrade(value)} />
         </div>
-        <Button onClick={() => onSearchHandler()}>Search</Button>
+        <Button
+          className="sm: col-span-3 w-full md:col-span-1"
+          onClick={() => onSearchHandler()}
+        >
+          Search
+        </Button>
       </div>
       {/* attendance grid */}
       <AttendanceGrid

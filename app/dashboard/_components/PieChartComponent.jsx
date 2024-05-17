@@ -23,7 +23,7 @@ const PieChartComponent = () => {
   }, [presentPercentage, absentPercentage]);
 
   return (
-    <div className="border p-5 rounded-lg">
+    <div className="border p-5 sm:p-2 rounded-lg">
       <h2 className="font-bold text-lg">Monthly Attendance</h2>
       <ResponsiveContainer width={"100%"} height={315}>
         <PieChart>

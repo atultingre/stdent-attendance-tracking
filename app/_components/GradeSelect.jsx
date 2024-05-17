@@ -15,15 +15,18 @@ const GradeSelect = ({ selectedGrade }) => {
   };
 
   return (
-    <div>
+    <div className="">
       <select
-        className="p-2 border rounded "
+        className="p-2 border rounded"
         onChange={(e) => selectedGrade(e.target.value)}
       >
+        <option disabled>Select Class</option>
         {grades?.map((item, index) => (
-          <option value={item.grade} key={index}>
-            {item.grade}
-          </option>
+          <>
+            <option value={item.grade} key={index}>
+              {item.grade}
+            </option>
+          </>
         ))}
       </select>
     </div>
